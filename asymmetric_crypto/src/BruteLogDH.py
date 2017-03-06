@@ -1,5 +1,3 @@
-import sys
-
 """
 Goal: compute powers a,b (discrete log)
 by brute force
@@ -13,17 +11,17 @@ g = 6
 
 
 class BruteLogDH:
-    def compute(self, A, B, p, g, range):
+    def compute(self, A, B, p, g, r):
         a = None
         b = None
         # Compute powers a,b (discrete log)
-        for i in xrange(range):
+        for i in xrange(r):
             a = g ** i % p
             if (A == a):
                 a = i
                 print "a: %s" % (i)
                 break
-        for i in xrange(range):
+        for i in xrange(r):
             b = g ** i % p
             if (B == b):
                 b = i
@@ -34,16 +32,10 @@ class BruteLogDH:
         ka = A ** b % p
         if (ka == kb): print "Key valid, k: %s" % (ka)
 
-    if __name__ == '__main__':
-        if len(sys.argv) == 5:
-            A = sys.argv[1]
-            B = sys.argv[2]
-            p = sys.argv[3]
-            g = sys.argv[4]
-            range = sys.argv[5]
-        else:
-            print('Please provide all arguments for A,B,p,g,range')
-            sys.exit(1)
-
-        # Example bruteLog(7, 5, 11, 6, 10)
-        compute(A, B, p, g, range)
+    def __init__(self, A, B, p, g, r):
+        self.B = B
+        self.A = A
+        self.p = p
+        self.g = g
+        self.range = r
+        self.compute(A, B, p, g, r)
