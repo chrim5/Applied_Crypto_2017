@@ -6,9 +6,8 @@ A = 7
 B = 5
 p = 11
 g = 6
-5**3 % 13 = 3
+r = 10
 """
-
 
 class BruteLogDH:
     def compute(self, A, B, p, g, r):
@@ -27,11 +26,12 @@ class BruteLogDH:
                 b = i
                 print "b: %s" % (i)
                 break
+        """
         # Test DH key
         kb = B ** a % p
         ka = A ** b % p
         if (ka == kb): print "Key valid, k: %s" % (ka)
-
+        """
     def __init__(self, A, B, p, g, r):
         self.B = B
         self.A = A
