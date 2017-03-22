@@ -1,6 +1,3 @@
-from collections import defaultdict
-
-
 class DESSBoxes:
 	"""Verify that S-boxes in DES are nonlinear by computing the output for several pairs of inputs.
 	S2-box example
@@ -42,12 +39,26 @@ class DESSBoxes:
 			  {'1000': '11', 'val': 11}, {'1001': '11', 'val': 6}, {'1010': '11', 'val': 7}, {'1011': '11', 'val': 12},
 			  {'1100': '11', 'val': 0}, {'1101': '11', 'val': 5}, {'1110': '11', 'val': 14}, {'1111': '11', 'val': 9}]
 
+	""" Helper function decimal to binary
+	Args: Integer value from S2 box
+	Returns: String formatted binary value
+	"""
 	def dec_to_bin(self, x):
-		return int(bin(x)[2:])
+		#return int(bin(x)[2:])
+		return '{0:b}'.format(x)
 
-	def bin_to_dec(self, x):
-		return int(x, 2)
+	""" Helper function to perform binary xor bitwise
+	Args: 2 binary strings
+	Returns: String formatted binary value
+	"""
+	def binary_xor_bitwise(self, x, y):
+		result = int(x, 2) ^ int(y, 2)
+		return bin(result)[2:].zfill(len(x))
 
+	""" Lookup a decimal value in S2 box and return it as binary
+	Args: Binary string
+	Returns: String formatted binary value
+	"""
 	def lookup_table_s2(self, p):
 		p = str(p)
 		s2_box = self.S2_BOX
@@ -65,17 +76,25 @@ class DESSBoxes:
 				return self.dec_to_bin(i.get('val'))
 				break
 
+	""" Calculate S2(p1) XOR S2(p2)
+	Args: 2 binary strings
+	Returns: String formatted binary value
+	"""
 	def s2_p1_xor_s2_p2(self, p1, p2):
-		return self.lookup_table_s2(p1) ^ self.lookup_table_s2(p2)
+		#print self.lookup_table_s2(p1), self.lookup_table_s2(p2)
+		result =  int(self.binary_xor_bitwise(self.lookup_table_s2(p1), self.lookup_table_s2(p2)))
+		return result
 
+	""" Calculate S2(p1 XOR p2)
+	Args: 2 binary strings
+	Returns: String formatted binary value
+	"""
 	def s2_p1_xor_p2(self, p1, p2):
-		xor_bitwise = str(int(p1) ^ int(p2))
-		return self.lookup_table_s2(xor_bitwise)
+		return self.lookup_table_s2(self.binary_xor_bitwise(p1, p2))
 
+	""" Constructor
+	Args: self
+	Returns:
+	"""
 	def __init__(self):
 		pass
-
-
-a = DESSBoxes().s2_p1_xor_s2_p2('000001', '000011')
-b = DESSBoxes().s2_p1_xor_p2('000001', '000011')
-print a, b
