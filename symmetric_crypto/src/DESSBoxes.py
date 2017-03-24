@@ -78,11 +78,11 @@ class DESSBoxes:
 
 	""" Calculate S2(p1) XOR S2(p2)
 	Args: 2 binary strings
-	Returns: String formatted binary value
+	Returns: Binary value (integer)
 	"""
 	def s2_p1_xor_s2_p2(self, p1, p2):
 		#print self.lookup_table_s2(p1), self.lookup_table_s2(p2)
-		result =  int(self.binary_xor_bitwise(self.lookup_table_s2(p1), self.lookup_table_s2(p2)))
+		result = int(self.binary_xor_bitwise(self.lookup_table_s2(p1), self.lookup_table_s2(p2)))
 		return result
 
 	""" Calculate S2(p1 XOR p2)
