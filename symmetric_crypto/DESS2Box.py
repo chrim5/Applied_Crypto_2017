@@ -1,4 +1,4 @@
-class DESSBoxes:
+class DESS2Box:
 	"""Verify that S-boxes in DES are nonlinear by computing the output for several pairs of inputs.
 	S2-box example
 			x0000x 	x0001x 	x0010x 	x0011x 	x0100x 	x0101x 	x0110x 	x0111x 	x1000x 	x1001x 	x1010x 	x1011x 	x1100x 	x1101x 	x1110x 	x1111x
